@@ -10,8 +10,9 @@ export default function Home() {
   const section2 = useRef(null);
   const section3 = useRef(null);
   const panels = useRef(null)
-
+  const container = useRef(null)
   const box = useRef(null);
+  
 
   useEffect(() => {
     
@@ -22,6 +23,9 @@ export default function Home() {
     console.log('init gsap')
     let sections = gsap.utils.toArray(panels.current.querySelectorAll('.panel'));
     console.log(sections, 'sectionssectionssectionssections')
+
+    const sectionsRefs = [section1.current, section2.current, section3.current]
+    console.log(sectionsRefs, 'refssss')
 
     gsap.to(sections, {
       yPercent: -100 * (sections.length - 1),
@@ -37,6 +41,30 @@ export default function Home() {
         onUpdate: (self) => console.log('update'),
       }
     });
+
+    gsap.to(box.current, {
+      x: 400,
+      rotate: 360,
+      duration: 3,
+      scrollTrigger: {
+        trigger: section3.current,
+        start: 'top 30%',
+        end: "+=100",
+        toggleActions: 'play none none reverse',
+      }
+    })
+
+
+    sectionsRefs.forEach(section => {
+      console.log(section, '*SECTION')
+      gsap.from(section.querySelectorAll("h1, p"), {
+        scrollTrigger: section.current,
+        autoAlpha: 0,
+        y: 25,
+        duration: 0.75,
+        stagger: 0.25
+      });
+    });
     
     return () => {
     }
@@ -50,7 +78,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.container}>
+      <main className={styles.container} ref={container}>
         <div className={`${styles.section} ${styles.section__1}`} ref={section1}>
           <h1>Section 1</h1>
           <div className={`${styles.box} ${styles.box__1}`}></div>
@@ -60,6 +88,7 @@ export default function Home() {
           <div ref={panels} className={styles.panels}>
             <div className="panel">
               <img src="https://picsum.photos/200/300" alt=""/>
+              <h1>Some heading</h1>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -69,6 +98,7 @@ export default function Home() {
             </div>
             <div className="panel">
               <img src="https://picsum.photos/200/300" alt=""/>
+              <h1>Some heading</h1>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -78,6 +108,7 @@ export default function Home() {
             </div>
             <div className="panel">
               <img src="https://picsum.photos/200/300" alt=""/>
+              <h1>Some heading</h1>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
